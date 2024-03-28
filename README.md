@@ -1,30 +1,43 @@
-Project Name
-Description
-This project consists of a server and a customer-client application.
+# NextSP Shop Project | Final Project 
 
-Getting Started
-Prerequisites
+## Description
+Developed necessary functions for an online sales website:
+Product display page
+Shopping Cart
+Product detail page
+Payment
+Rating
+Receiving customer information
+Implemented CRUD operations allowing the website to utilize data from Backend’s API to show on the user interface.
+## Getting Started
+
+### Prerequisites
+
 Make sure you have Node.js installed on your machine.
 
-Starting the Server
-Open your terminal.
+Clone the repository here:
+https://github.com/thieenjdev03/Nextsp
 
-Navigate to the server directory.
-
-Run the following command to install dependencies:
+### Starting the Server
+1. Open your terminal.
+2. Navigate to the server directory.
+3. Run the following command to install dependencies:
+```
 npm install
-Once the dependencies are installed, start the server by running:
+```
+4. Once the dependencies are installed, start the server by running:
+```
 nodemon server
+```
 
-Starting the Customer-Client
-Open another terminal window.
-
-Navigate to the customer-client directory.
-
-Run the following command to install dependencies:
+### Starting the Customer-Client
+1. Open another terminal window.
+2. Navigate to the customer-client directory.
+3. Run the following command to install dependencies:
+```
 npm install
-After the dependencies are installed, start the customer-client by running:
+```
+4. After the dependencies are installed, start the customer-client by running:
+```
 npm start
-This will launch the interface for the application.
-Contributing
-Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+```
