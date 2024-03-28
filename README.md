@@ -41,3 +41,4 @@ npm install
 ```
 npm start
 ```
+5. Access http://localhost:3000/ to see the website
