@@ -31,15 +31,11 @@ function Homepage(props) {
           <div className="container-product-section inline-block relative">
             <div className="container-product-section-content flex flex-col contents-center mr-auto ml-auto gap-10">
               <SloganListSection />
-              <ProductListAll />
               <ProductList
                 title="Thương Hiệu Asus"
                 CollectionBrand="Asus"                
               />
-              <ProductList
-                title="Gaming Gear"
-                CollectionCategory="Bàn Phím"
-              />
+              <ProductListAll></ProductListAll>
             </div>
           </div>
         </div>

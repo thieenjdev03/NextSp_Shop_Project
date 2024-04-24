@@ -33,9 +33,13 @@ function ProductList(props) {
       setIsLoading(false);
     }, 2000);
   }, []);
-  const AvailableProducts = products.filter(
-    (product) => product.status === "Active"
-  );
+  function shortenProductName(productName, maxLength) {
+    if (productName.length <= maxLength) {
+      return productName;
+    } else {
+      return productName.substring(0, maxLength - 3) + "...";
+    }
+  }
   const handleCurrentItem = (productId) => {
     const selectedProduct = products.find(
       (product) => product.id === productId
@@ -56,6 +60,62 @@ function ProductList(props) {
       }
     }
   };
+  let productListContent;
+
+  if (!products || products.length === 0) {
+    productListContent = <p>Không có sản phẩm.</p>;
+  } else {
+    const AvailableProducts = products.filter(
+      (product) => product.status === "Active"
+    );
+
+    productListContent = AvailableProducts.map(
+      (product, index) =>
+        index < 5 && (
+          <div
+            key={product.id}
+            className="productItem flex flex-col border-black-500/100 gap-1 items-center justify-center"
+          >
+            <Link to={`/products/${product.id}`}>
+              <div className="product_image w-full h-52 object-cover">
+                <img
+                  src={
+                    product.images[0] == null
+                      ? imagePlaceHolder
+                      : product.images[0]
+                  }
+                  alt=""
+                  className="w-full h-44 object-contain "
+                />
+              </div>
+              <div className="textSection w-full flex flex-col">
+                <div className="product_title text-left">
+                  <h1 className="h-20">
+                    {shortenProductName(product.nameProduct, 50)}
+                  </h1>
+                </div>
+                <div>
+                  <p className="product_oldPrice text-left">
+                    {formatPrice(product.oldprice)}
+                  </p>
+                  <p className="product_price text-left">
+                    {formatPrice(product.price)}
+                  </p>
+                </div>
+              </div>
+              <div className="product_rating h-3 flex gap-1 items-center">
+                <StarRating rating={product.averageRating} />
+                <p className="text-xs">({product.numReviews} đánh giá)</p>
+              </div>
+            </Link>
+            <div className="over-button flex gap-4 items-center justify-center mt-3">
+              <ButtonBuyNow product={product} />
+              <ButtonAddToCart product={product} />
+            </div>
+          </div>
+        )
+    );
+  }
   return (
     <div className="productList w-full p-4 mr-auto ml-auto bg-white rounded-md">
       {isLoading && (
@@ -87,53 +147,7 @@ function ProductList(props) {
         </div>
       </div>
       <div className="ProductList2 flex flex-wrap gap-4 content-center justify-center">
-        {AvailableProducts.reverse() &&
-          AvailableProducts.map(
-            (product, index) =>
-              index < 10 && (
-                <div
-                  key={product.id}
-                  className="productItem flex flex-col border-black-500/100 p-4 gap-1 items-center justify-center"
-                  onClick={() => handleCurrentItem(product.id)}
-                >
-                  <Link
-                    className="w-full items-center justify-center"
-                    to={`/products/${product.id}`}
-                  >
-                    <div className="product_image w-60 h-52 object-cover flex items-center justify-center">
-                      <img
-                        src={product.images[0]}
-                        alt=""
-                        className="w-60 h-44 object-contain"
-                      />
-                    </div>
-                    <div className="textSection flex flex-col px-9">
-                      <div className="product_title">
-                        <h1 className="h-20">{product.nameProduct} </h1>
-                      </div>
-                      <div>
-                        <p className="product_oldPrice">
-                          {formatPrice(product.oldprice)}
-                        </p>
-                        <p className="product_price">
-                          {formatPrice(product.price)}
-                        </p>
-                      </div>
-                      <div className="product_rating flex gap-1 items-center">
-                        <StarRating rating={product.averageRating} />
-                        <p className="text-xs">
-                          ({product.numReviews} đánh giá)
-                        </p>
-                      </div>
-                    </div>
-                  </Link>
-                  <div className="over-button flex gap-4 items-center justify-center mt-3">
-                    <ButtonBuyNow product={product} />
-                    <ButtonAddToCart product={product} />
-                  </div>
-                </div>
-              )
-          )}
+      {productListContent}
       </div>
     </div>
   );
